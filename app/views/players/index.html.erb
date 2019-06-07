@@ -1,0 +1,8 @@
+<h1>List of Players</h1>
+<ul><% @players.each do |player| %>
+  <li>
+    <%= link_to player.name, player_path(player) %>
+  <% end %></li>
+</ul>
+
+<div><%= link_to 'Create Player', new_player_path %></div>

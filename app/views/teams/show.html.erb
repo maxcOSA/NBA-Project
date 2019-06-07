@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Teams </h1>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 10px;
+}
+</style>
+</head>
+
+
+<table style="margin-top:1px;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Conference</th>
+      <th>Division</th>
+      <th>Regular Season Record</th>
+      <th>Conference Standing</th>
+      <th>Division Standing</th>
+      <th>League Standing</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%=@team.name%></td>  
+      <td><%=@team.conference%></td>
+      <td><%=@team.division%></td>
+      <td><%=@team.reg_rec%></td>
+      <td><%=@team.conference_standing%></td>
+      <td><%=@team.division_standing%></td>
+      <td><%=@team.league_standing%></td>
+    </tr>
+  </tbody>
+</table>
+
+<td><%= link_to 'Edit', edit_team_path(@team) %></td>
+<%= link_to 'Back', teams_path %>

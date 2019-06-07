@@ -1,0 +1,260 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/seasons">Home</a>
+  <form class="form-inline">
+    <a class="btn btn-outline-primary" href="/finals" role="button">
+      Finals History
+    </a>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/awards" role="button">
+      Awards History
+      </a>
+    </div>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/teams" role="button">
+      Teams
+      </a>
+    </div>
+  </form>
+</nav>
+
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 10px;
+}
+
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="tab">
+  <% @seasons.each do |season| %>
+    <button class="tablinks" onclick="openYear(event, '<%= season.year_id %>' )"><%= season.year_id %></button>
+  <% end %>
+</div>
+
+
+
+<h1>Players</h1>
+<%= link_to 'Create Season', new_season_path %>
+
+
+
+<% @seasons.each do |season| %>
+  <div id="<%= season.year_id %>" class="tabcontent">
+    <head>
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        #myInput {
+          background-image: url('/css/searchicon.png');
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          width: 100%;
+          font-size: 16px;
+          padding: 12px 20px 12px 40px;
+          border: 1px solid #ddd;
+          margin-bottom: 12px;
+        }
+        
+      </style>
+    </head>
+
+
+    <h5> Click on a category header to sort </h5>
+    <input type="text" id="myInput" placeholder="Search for names, teams, college, or positions...">
+    <table id="players">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Team</th>
+          <th>College</th>
+          <th onclick="sortTable(3)">Year</th>
+          <th onclick="sortTable(4)">Draft Pick</th>
+          <th>Position</th>
+          <th onclick="sortTable(6)">GP</th>
+          <th onclick="sortTable(7)">MPG</th>
+          <th onclick="sortTable(8)">PPG</th>
+          <th onclick="sortTable(9)">RPG</th>
+          <th onclick="sortTable(10)">APG</th>
+          <th onclick="sortTable(11)">BPG</th>
+          <th onclick="sortTable(12)">SPG</th>
+          <th onclick="sortTable(13)">FGP</th>
+          <th onclick="sortTable(14)">TPP</th>
+          <th onclick="sortTable(15)">FTP</th>
+          <th>Awards Won</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% season.players.each do |player| %>
+          <tr>
+            <td><%= link_to player.name, player %></td>
+            <td><%= player.Team %></td>
+            <td><%= player.college %></td>
+            <td><%= player.years %></td>
+            <td><%= player.draftpick %></td>
+            <td><%= player.position %></td>
+            <td><%= player.GP %></td>
+            <td><%= player.MPG%></td>
+            <td><%= player.PPG %></td>
+            <td><%= player.RPG %></td>
+            <td><%= player.APG %></td>
+            <td><%= player.BPG %></td>
+            <td><%= player.SPG %></td>
+            <td><%= player.fgp %></td>
+            <td><%= player.tpp %></td>
+            <td><%= player.ftp %></td>
+            <td><%= player.award %></td>
+            <td><%= link_to 'Edit', edit_player_path(player) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div><%= link_to 'Create Player', new_player_path %></div>
+  </div>
+  
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  function openYear(evt, YearName) {
+    console.log(YearName);
+    console.log(evt);
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(YearName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("players");
+    switching = true;
+    dir = "desc"; 
+    while (switching) {
+      switching = false;
+      rows = table.rows;
+      for (i = 1; i < (rows.length - 1); i++) {
+        shouldSwitch = false;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        if (dir == "asc") {
+          if (Number(x.innerHTML) > Number(y.innerHTML)) {
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (Number(x.innerHTML) < Number(y.innerHTML)) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        switchcount ++;      
+      } else {
+        if (switchcount == 0 && dir == "desc") {
+          dir = "asc";
+          switching = true;
+        }
+      }
+    }
+  }
+
+
+  function filterTable(event) {
+      var filter = event.target.value.toUpperCase();
+      var rows = document.querySelector("#players tbody").rows;
+      
+      for (var i = 0; i < rows.length; i++) {
+          var nameCol = rows[i].cells[0].textContent.toUpperCase();
+          var teamCol = rows[i].cells[1].textContent.toUpperCase();
+          var collegeCol = rows[i].cells[2].textContent.toUpperCase();
+          var posCol = rows[i].cells[5].textContent.toUpperCase();
+          if (nameCol.indexOf(filter) > -1 || teamCol.indexOf(filter) > -1 || posCol.indexOf(filter) > -1 || collegeCol.indexOf(filter) > -1) {
+              rows[i].style.display = "";
+          } else {
+              rows[i].style.display = "none";
+          }      
+      }
+  }
+
+  document.querySelector('#myInput').addEventListener('keyup', filterTable, false);
+</script>
+   
+</body>
+
+<p id="notice"><%= notice %></p>

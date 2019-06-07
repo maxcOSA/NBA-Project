@@ -1,0 +1,53 @@
+<%= form_with(model: award, local: true) do |form| %>
+    <% if award.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(award.errors.count, "error") %> prohibited this award from being saved:</h2>
+  
+        <ul>
+        <% award.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label :year %>
+      <%= form.number_field :year %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :MVP %>
+      <%= form.text_field :MVP %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :DPOY %>
+      <%= form.text_field :DPOY %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :MIP %>
+      <%= form.text_field :MIP %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :COY %>
+      <%= form.text_field :COY %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :ROY %>
+      <%= form.text_field :ROY %>
+    </div>
+
+    <div class="field">
+    <%= form.label :SMOY %>
+    <%= form.text_field :SMOY %>
+     </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+  

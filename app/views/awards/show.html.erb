@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Award Winners in <%= @award.year %> </h1>
+<p>
+  <strong>Year:</strong>
+  <%= @award.year %>
+</p>
+
+<p>
+  <strong>MVP:</strong>
+  <%= @award.MVP %>
+</p>
+
+<p>
+  <strong>DPOY:</strong>
+  <%= @award.DPOY %>
+</p>
+
+<p>
+  <strong>MIP:</strong>
+  <%= @award.MIP %>
+</p>
+
+<p>
+  <strong>COY:</strong>
+  <%= @award.COY %>
+</p>
+
+<p>
+  <strong>ROY:</strong>
+  <%= @award.ROY %>
+</p>
+
+<p>
+  <strong>SMOY:</strong>
+  <%= @award.SMOY %>
+</p>
+
+<%= link_to 'Edit', edit_award_path(@award) %> |
+<%= link_to 'Back', awards_path %>

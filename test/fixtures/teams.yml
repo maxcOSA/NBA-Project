@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  conference: 
+  division: 
+  record: 
+  finish: 
+  league_standing: 
+  conference_standing: 
+  league_standing: 1
+
+two:
+  name: 
+  conference: 
+  division: 
+  record: 
+  finish: 
+  league_standing: 
+  conference_standing: 
+  league_standing: 1

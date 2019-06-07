@@ -1,0 +1,118 @@
+<%= form_with(model: player, local: true) do |form| %>
+  <% if player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(player.errors.count, "error") %> prohibited this player from being saved:</h2>
+
+      <ul>
+      <% player.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+  <%= form.label :Team %>
+  <%= form.text_field :Team %>
+  </div>
+
+  <div class="field">
+    <%= form.label :college %>
+    <%= form.text_field :college %>
+  </div>
+
+  <div class="field">
+    <%= form.label :years %>
+    <%= form.text_field :years %>
+  </div>
+
+  <div class="field">
+    <%= form.label :draftpick %>
+    <%= form.text_field :draftpick %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position %>
+    <%= form.text_field :position %>
+  </div>
+
+  <div class="field">
+    <%= form.label :GP %>
+    <%= form.text_field :GP %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MPG %>
+    <%= form.text_field :MPG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PPG %>
+    <%= form.text_field :PPG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RPG %>
+    <%= form.text_field :RPG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :APG %>
+    <%= form.text_field :APG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BPG %>
+    <%= form.text_field :BPG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SPG %>
+    <%= form.text_field :SPG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fgp %>
+    <%= form.text_field :fgp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tpp %>
+    <%= form.text_field :tpp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ftp %>
+    <%= form.text_field :ftp %>
+  </div>
+
+<div class="field">
+  <%= form.label :championships %>
+  <%= form.number_field :championships %>
+</div>
+
+<div class="field">
+  <%= form.label :finalsAppearances %>
+  <%= form.number_field :finalsAppearances %>
+</div>
+
+<div class="field">
+  <%= form.label :award %>
+  <%= form.text_field :award %>
+</div>
+
+<div class="field">
+  <%= form.label :season_id %>
+  <%= form.number_field :season_id %>
+</div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

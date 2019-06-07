@@ -1,0 +1,71 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/seasons">Home</a>
+  <form class="form-inline">
+    <a class="btn btn-outline-primary" href="/finals" role="button">
+      Finals History
+    </a>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/teams" role="button">
+      teams History
+      </a>
+    </div>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/teams" role="button">
+      Teams
+      </a>
+    </div>
+  </form>
+</nav>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 10px;
+}
+</style>
+</head>
+
+
+
+<h1>Teams</h1>
+
+<table style="width:90%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Conference</th>
+      <th>Division</th>
+      <th>Regular Season Record</th>
+      <th>Finish</th>
+      <th>Division Standing</th>
+      <th>Conference Standing</th>
+      <th>League Standing </th>
+      <th colspan="10"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.conference%></td>
+        <td><%= team.division %></td>
+        <td><%= team.reg_rec %></td>
+        <td><%= team.finish %></td>
+        <td><%= team.division_standing %></td>
+        <td><%= team.conference_standing %></td>
+        <td><%= team.league_standing %></td>
+        <td><%= link_to 'Edit', edit_team_path(team) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div><%= link_to 'Create Team', new_team_path %></div>

@@ -1,0 +1,57 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/seasons">Home</a>
+  <form class="form-inline">
+    <a class="btn btn-outline-primary" href="/finals" role="button">
+      Finals History
+    </a>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/awards" role="button">
+      Awards History
+      </a>
+    </div>
+  </form>
+</nav>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+th, td {
+  padding: 10px;
+}
+</style>
+
+
+<h1> Past Awards winners </h1>
+
+<table style="width:90%">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>MVP</th>
+      <th>DPOY</th>
+      <th>MIP</th>
+      <th>COY</th>
+      <th>ROY</th>
+      <th>SMOY</th>
+      <th colspan="10"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @awards.each do |award| %>
+      <tr>
+        <td><%= award.year %></td>
+        <td><%= award.MVP%></td>
+        <td><%= award.DPOY %></td>
+        <td><%= award.MIP %></td>
+        <td><%= award.COY %></td>
+        <td><%= award.ROY %></td>
+        <td><%= award.SMOY %></td>
+        <td><%= link_to 'Show', award %></td>
+        <td><%= link_to 'Edit', edit_award_path(award) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Award', new_award_path %>

@@ -1,0 +1,123 @@
+
+<h1>
+<%= @player.name %>
+</h1>
+
+<%= image_tag("/assets/#{@player.name}.jpg",  :size => "400x250") %>
+
+<style>
+table, th, td {
+border: 1px solid black;
+}
+th, td {
+padding: 10px;
+}
+</style>
+
+
+<table style="margin-top:1px;">
+  <tr>
+    <th>Position</th>
+    <th>College</th>
+    <th>Draft Pick</th>
+    <th>Championships</th>
+    <th>Finals Appearances</th>
+  </tr>
+  <tr>
+    <td><%=@player.position%></td>  
+    <td><%=@player.college%></td>
+    <td><%=@player.draftpick%></td>
+    <td><%=@player.championships%></td>
+    <td><%=@player.finalsAppearances%></td>
+  </tr>
+</table>
+
+
+<table id="player", style="margin-top:25px;">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)">Season</th>
+      <th>Team</th>
+      <th onclick="sortTable(2)">Years Played</th>
+      <th onclick="sortTable(3)">GP</th>
+      <th onclick="sortTable(4)">MPG</th>
+      <th onclick="sortTable(5)">PPG</th>
+      <th onclick="sortTable(6)">RPG</th>
+      <th onclick="sortTable(7)">APG</th>
+      <th onclick="sortTable(8)">BPG</th>
+      <th onclick="sortTable(9)">SPG</th>
+      <th onclick="sortTable(10)">FGP</th>
+      <th onclick="sortTable(11)">TPP</th>
+      <th onclick="sortTable(12)">FTP</th>
+      <th>Awards</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for p in Player.where(:name => @player.name)%>
+      <tr>
+        <td><%= p.season_id %></td>
+        <td><%= p.Team %></td>
+        <td><%= p.years %></td>
+        <td><%= p.GP %></td>
+        <td><%= p.MPG %></td>
+        <td><%= p.PPG %></td>
+        <td><%= p.RPG %></td>
+        <td><%= p.APG %></td>
+        <td><%= p.BPG %></td>
+        <td><%= p.SPG %></td>
+        <td><%= p.fgp %></td>
+        <td><%= p.tpp %></td>
+        <td><%= p.ftp %></td>
+        <td><%= p.award %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+<td><%= link_to 'Edit', edit_player_path(@player) %></td>
+<%= link_to 'Back', seasons_path %>
+
+
+
+
+
+<script>
+
+  function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("player");
+      switching = true;
+      dir = "desc"; 
+      while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          if (dir == "asc") {
+            if (Number(x.innerHTML) > Number(y.innerHTML)) {
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (Number(x.innerHTML) < Number(y.innerHTML)) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;      
+        } else {
+          if (switchcount == 0 && dir == "desc") {
+            dir = "asc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+</script>
+<p id="notice"><%= notice %></p>

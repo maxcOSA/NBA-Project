@@ -1,0 +1,14 @@
+<h1><%= @season.year_id %></h1>
+<%= link_to 'Edit', edit_season_path(@season) %>
+<p><b>Season:</b> <%= @season.year_id %></p>
+
+
+<h3>Players</h3>
+<ul>
+  <% @season.players.each do |player| %>
+  <li><%= link_to player.name, player_path(player) %></li>
+  <% end %>
+</ul><br>
+
+<p><%= link_to 'Delete', @season, method: 'delete', data: { confirm: 'Are you sure?' }%></p>
+<p><%= link_to 'Go back to all seasons', seasons_path %></p>
