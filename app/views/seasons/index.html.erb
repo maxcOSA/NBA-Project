@@ -9,11 +9,6 @@
       Awards History
       </a>
     </div>
-    <div style="padding-left: 10px;">
-      <a class="btn btn-outline-success" href="/teams" role="button">
-      Teams
-      </a>
-    </div>
   </form>
 </nav>
 
@@ -73,99 +68,104 @@ body {font-family: Arial;}
 
 </style>
 </head>
+
+
+
 <body>
-
-<div class="tab">
-  <% @seasons.each do |season| %>
-    <button class="tablinks" onclick="openYear(event, '<%= season.year_id %>' )"><%= season.year_id %></button>
-  <% end %>
-</div>
-
-
-
-<h1>Players</h1>
-<%= link_to 'Create Season', new_season_path %>
-
-
-
-<% @seasons.each do |season| %>
-  <div id="<%= season.year_id %>" class="tabcontent">
-    <head>
-      <style>
-        * {
-          box-sizing: border-box;
-        }
-        
-        #myInput {
-          background-image: url('/css/searchicon.png');
-          background-position: 10px 10px;
-          background-repeat: no-repeat;
-          width: 100%;
-          font-size: 16px;
-          padding: 12px 20px 12px 40px;
-          border: 1px solid #ddd;
-          margin-bottom: 12px;
-        }
-        
-      </style>
-    </head>
-
-
-    <h5> Click on a category header to sort </h5>
-    <input type="text" id="myInput" placeholder="Search for names, teams, college, or positions...">
-    <table id="players">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Team</th>
-          <th>College</th>
-          <th onclick="sortTable(3)">Year</th>
-          <th onclick="sortTable(4)">Draft Pick</th>
-          <th>Position</th>
-          <th onclick="sortTable(6)">GP</th>
-          <th onclick="sortTable(7)">MPG</th>
-          <th onclick="sortTable(8)">PPG</th>
-          <th onclick="sortTable(9)">RPG</th>
-          <th onclick="sortTable(10)">APG</th>
-          <th onclick="sortTable(11)">BPG</th>
-          <th onclick="sortTable(12)">SPG</th>
-          <th onclick="sortTable(13)">FGP</th>
-          <th onclick="sortTable(14)">TPP</th>
-          <th onclick="sortTable(15)">FTP</th>
-          <th>Awards Won</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% season.players.each do |player| %>
-          <tr>
-            <td><%= link_to player.name, player %></td>
-            <td><%= player.Team %></td>
-            <td><%= player.college %></td>
-            <td><%= player.years %></td>
-            <td><%= player.draftpick %></td>
-            <td><%= player.position %></td>
-            <td><%= player.GP %></td>
-            <td><%= player.MPG%></td>
-            <td><%= player.PPG %></td>
-            <td><%= player.RPG %></td>
-            <td><%= player.APG %></td>
-            <td><%= player.BPG %></td>
-            <td><%= player.SPG %></td>
-            <td><%= player.fgp %></td>
-            <td><%= player.tpp %></td>
-            <td><%= player.ftp %></td>
-            <td><%= player.award %></td>
-            <td><%= link_to 'Edit', edit_player_path(player) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div><%= link_to 'Create Player', new_player_path %></div>
+  <div class="tab">
+    <% @seasons.each do |season| %>
+      <button class="tablinks" onclick="openYear(event, '<%= season.year_id %>' )"><%= season.year_id %></button>
+    <% end %>
   </div>
-  
-<% end %>
 
+
+  <h1>Players</h1>
+  <%= link_to 'Create Season', new_season_path %>
+
+
+
+  <% @seasons.each do |season| %>
+    <div id="<%= season.year_id %>" class="tabcontent">
+
+
+      
+
+    
+      <head>
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          
+          #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+          }
+          
+        </style>
+      </head>
+
+
+      <h5> Click on a category header to sort </h5>
+      <input type="text" id="myInput" placeholder="Search for names, teams, college, or positions...">
+      <table id="players">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Team</th>
+            <th>College</th>
+            <th onclick="sortTable(3)">Year</th>
+            <th onclick="sortTable(4)">Draft Pick</th>
+            <th>Position</th>
+            <th onclick="sortTable(6)">GP</th>
+            <th onclick="sortTable(7)">MPG</th>
+            <th onclick="sortTable(8)">PPG</th>
+            <th onclick="sortTable(9)">RPG</th>
+            <th onclick="sortTable(10)">APG</th>
+            <th onclick="sortTable(11)">BPG</th>
+            <th onclick="sortTable(12)">SPG</th>
+            <th onclick="sortTable(13)">FGP</th>
+            <th onclick="sortTable(14)">TPP</th>
+            <th onclick="sortTable(15)">FTP</th>
+            <th>Awards Won</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% season.players.each do |player| %>
+            <tr>
+              <td><%= link_to player.name, player %></td>
+              <td><%= player.Team %></td>
+              <td><%= player.college %></td>
+              <td><%= player.years %></td>
+              <td><%= player.draftpick %></td>
+              <td><%= player.position %></td>
+              <td><%= player.GP %></td>
+              <td><%= player.MPG%></td>
+              <td><%= player.PPG %></td>
+              <td><%= player.RPG %></td>
+              <td><%= player.APG %></td>
+              <td><%= player.BPG %></td>
+              <td><%= player.SPG %></td>
+              <td><%= player.fgp %></td>
+              <td><%= player.tpp %></td>
+              <td><%= player.ftp %></td>
+              <td><%= player.award %></td>
+              <td><%= link_to 'Edit', edit_player_path(player) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div><%= link_to 'Create Player', new_player_path %></div>
+    </div>
+    
+  <% end %>
 
 
 

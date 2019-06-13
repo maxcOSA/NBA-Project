@@ -37,7 +37,7 @@ class TeamsController < ApplicationController
 
   private
   def team_params
-    params.require(:team).permit(:name, :conference, :division, :reg_rec, :finish, :division_standing, :conference_standing, :year_id, :league_standing, :championships, :finals_appearances)
+    params.require(:team).permit(:name, :conference, :division, :reg_rec, :finish, :division_standing, :conference_standing, :season_id, :league_standing, :championships, :finals_appearances)
   end
 
   def current_team

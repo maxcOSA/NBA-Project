@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_152756) do
+ActiveRecord::Schema.define(version: 2019_06_07_180139) do
 
   create_table "awards", force: :cascade do |t|
     t.string "year"
@@ -72,11 +72,11 @@ ActiveRecord::Schema.define(version: 2019_06_07_152756) do
     t.integer "conference_standing"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "year_id"
+    t.integer "season_id"
     t.integer "championships"
     t.integer "finals_appearances"
     t.integer "league_standing"
-    t.index ["year_id"], name: "index_teams_on_year_id"
+    t.index ["season_id"], name: "index_teams_on_season_id"
   end
 
   create_table "years", force: :cascade do |t|
