@@ -82,25 +82,32 @@ body {font-family: Arial;}
   <h1>Players</h1>
   <%= link_to 'Create Season', new_season_path %>
 
+      <div ng-controller="MainCtrl as $ctrl">
+
 
 
   <% @seasons.each do |season| %>
     <div id="<%= season.year_id %>" class="tabcontent">
 
 
-      
+        <div ui-grid="{ data: $ctrl.myData<%= season.year_id %> }" class="myGrid" id="grid_<%= season.year_id %>"></div>
+
 
 
       <h5> Click on a category header to sort </h5>
 
 
 
+      
 
 
+      <%
+=begin%>
+ <div id="grid_<%= season.year_id %>"></div> 
+<%
+=end%>
 
 
-
-      <div id="grid_<%= season.year_id %>"></div>
       <script>
           function openYear(evt, YearName) {
             console.log(YearName);
@@ -118,57 +125,6 @@ body {font-family: Arial;}
             evt.currentTarget.className += " active";
           }
 
-        var players = [
-          <% season.players.each do |player| %>
-            { "Name": `<%= link_to player.name, player_path(player) %>`, "Team": "<%= player.Team %>", "College": "<%= player.college %>", "Year": <%= player.years %>, "Draft Pick": "<%= player.draftpick %>", "Position": "<%= player.position %>",
-              "GP": <%= player.GP %>, "MPG": <%= player.MPG %>, "PPG": <%= player.PPG %>, "RPG": <%= player.RPG %>, "APG": <%= player.APG %>, "BPG": <%= player.BPG %>, "SPG": <%= player.SPG %>,
-              "FGP": <%= player.fgp %>, "TPP": <%= player.tpp %>, "FTP": <%= player.ftp %>, "Awards": "<%= player.award %>"},
-          <% end %>
-          ];
-
-
-
-        var countries = [
-            { Name: "", Id: 0 },
-            { Name: "United States", Id: 1 },
-            { Name: "Canada", Id: 2 },
-            { Name: "United Kingdom", Id: 3 }
-        ];
-    
-        $("#grid_<%= season.year_id %>").jsGrid({
-            width: "100%",
-            
-    
-            inserting: true,
-            filtering: true,
-            editing: true,
-            sorting: true,
-            paging: true,
-            autoload: true,
-    
-            data: players,
-    
-            fields: [
-                { name: "Name", type: "text", width: 100, validate: "required" },
-                { name: "Team", type: "text", width: 100 },
-                { name: "College", type: "text", width: 150 },
-                { name: "Year", type: "number", width: 50 },
-                { name: "Draft Pick", type: "number", width: 50 },
-                { name: "Position", type: "text", width: 100 },
-                { name: "GP", type: "number", width: 50 },
-                { name: "MPG", type: "number", width: 50 },
-                { name: "PPG", type: "number", width: 50 },
-                { name: "RPG", type: "number", width: 50 },
-                { name: "APG", type: "number", width: 50 },
-                { name: "BPG", type: "number", width: 50 },
-                { name: "SPG", type: "number", width: 50 },
-                { name: "FGP", type: "number", width: 50 },
-                { name: "TPP", type: "number", width: 50 },
-                { name: "FTP", type: "number", width: 50 },
-                { name: "Awards", type: "text", width: 200 },
-                { type: "control" }
-            ]
-        });
       </script>
 
 
@@ -180,7 +136,49 @@ body {font-family: Arial;}
     
     <% end %>
 
+      </div>
+
+
+
+<script>
+  angular.module('app', ['ngTouch', 'ui.grid'])
+  .controller('MainCtrl', MainCtrl);
+ 
+function MainCtrl() {
+
+
+
+    
+<% @seasons.each do |season| %>
+  this.myData<%= season.year_id %> = [
+    <% season.players.each do |player| %>
+    {
+        Name: `<%= link_to player.name, player_path(player) %>`,
+        Team: "<%= player.Team %>", College: "<%= player.college %>", 
+        Year: "<%= player.years %>", Draft_Pick: "<%= player.draftpick %>", 
+        Position: "<%= player.position %>",
+        GP: "<%= player.GP %>", 
+        MPG: "<%= player.MPG %>", 
+        PPG: "<%= player.PPG %>", 
+        RPG: "<%= player.RPG %>", 
+        APG: "<%= player.APG %>", 
+        BPG: "<%= player.BPG %>", 
+        SPG: "<%= player.SPG %>",
+        FGP: "<%= player.fgp %>", 
+        TPP: "<%= player.tpp %>", 
+        FTP: "<%= player.ftp %>", 
+        Awards: "<%= player.award %>"
+    },
+    <% end %>
+  ];
+<% end %>
+}
+</script>
+
+
 
 </body>
 
 <p id="notice"><%= notice %></p>
+
+
