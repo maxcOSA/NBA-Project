@@ -21,6 +21,14 @@ th, td {
 </style>
 
 
+<div ng-controller="MainCtrl as $ctrl">
+  <div ui-grid="{ data: $ctrl.myData }" class="myGrid"></div>
+</div>
+
+
+
+
+
 <h1> Past Awards winners </h1>
 
 <table style="width:90%">
@@ -55,3 +63,6 @@ th, td {
 </table>
 
 <%= link_to 'New Award', new_award_path %>
+
+
+<%= javascript_include_tag "app" %>
