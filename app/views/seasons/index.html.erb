@@ -90,7 +90,7 @@ body {font-family: Arial;}
     <div id="<%= season.year_id %>" class="tabcontent">
 
 
-        <div ui-grid="{ data: $ctrl.myData<%= season.year_id %> }" class="myGrid" id="grid_<%= season.year_id %>"></div>
+        <div ui-grid="$ctrl.gridOptions<%= season.year_id %>" class="myGrid" id="grid_<%= season.year_id %>" ui-grid-resize-columns></div>
 
 
 
@@ -141,21 +141,32 @@ body {font-family: Arial;}
 
 
 <script>
-  angular.module('app', ['ngTouch', 'ui.grid'])
+  angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.resizeColumns'])
   .controller('MainCtrl', MainCtrl);
  
 function MainCtrl() {
 
 
 
+
+
     
 <% @seasons.each do |season| %>
-  this.myData<%= season.year_id %> = [
+
+this.gridOptions<%= season.year_id %> = {
+    enableFiltering: true,
+    enableColumnResizing: true,
+
+    
+    data: [
     <% season.players.each do |player| %>
     {
-        Name: `<%= link_to player.name, player_path(player) %>`,
-        Team: "<%= player.Team %>", College: "<%= player.college %>", 
-        Year: "<%= player.years %>", Draft_Pick: "<%= player.draftpick %>", 
+        Id: '<%= player.id %>',
+        Name: '<%= player.name %>',
+        Team: "<%= player.Team %>", 
+        College: "<%= player.college %>", 
+        Year: "<%= player.years %>", 
+        Draft_Pick: "<%= player.draftpick %>", 
         Position: "<%= player.position %>",
         GP: "<%= player.GP %>", 
         MPG: "<%= player.MPG %>", 
@@ -170,12 +181,37 @@ function MainCtrl() {
         Awards: "<%= player.award %>"
     },
     <% end %>
-  ];
+  ],
+    columnDefs: [
+      { name: 'Name', width:200 },
+      { name: 'Id', displayName: "Player Link", cellTemplate: '<a href="/players/{{COL_FIELD}}">Go To Player</a>' },
+      { name: 'Team', width:200 },
+      { name: 'College', width:200 },
+      { name: 'Year', type: "number" },
+      { name: 'Draft_Pick', type: "number"  },
+      { name: 'Position', width:150 },
+      { name: 'GP', type: "number"  },
+      { name: 'MPG', type: "number"  },
+      { name: 'PPG', type: "number"  },
+      { name: 'RPG', type: "number"  },
+      { name: 'APG', type: "number"  },
+      { name: 'BPG', type: "number"  },
+      { name: 'SPG', type: "number"  },
+      { name: 'FGP', type: "number"  },
+      { name: 'TPP', type: "number"  },
+      { name: 'FTP', type: "number"  },
+      { name: 'Awards' },
+    ]
+  };
+
 <% end %>
 }
 </script>
 
-
+      <!--{ Team: 'gender' },
+      { Year: 'company' },
+      { name: 'widgets' },
+      { name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, row)}}</div>' }-->
 
 </body>
 
