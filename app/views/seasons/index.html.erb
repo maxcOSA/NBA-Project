@@ -71,147 +71,25 @@ body {font-family: Arial;}
 
 
 
+
+
+
+
+
+
+
+
+
 <body>
-  <div class="tab">
-    <% @seasons.each do |season| %>
-      <button class="tablinks" onclick="openYear(event, '<%= season.year_id %>' )"><%= season.year_id %></button>
-    <% end %>
-  </div>
-
-
-  <h1>Players</h1>
-  <%= link_to 'Create Season', new_season_path %>
-
-      <div ng-controller="MainCtrl as $ctrl">
 
 
 
-  <% @seasons.each do |season| %>
-    <div id="<%= season.year_id %>" class="tabcontent">
-
-
-        <div ui-grid="$ctrl.gridOptions<%= season.year_id %>" class="myGrid" id="grid_<%= season.year_id %>" ui-grid-resize-columns></div>
-
-
-
-      <h5> Click on a category header to sort </h5>
-
-
-
-      
-
-
-      <%
-=begin%>
- <div id="grid_<%= season.year_id %>"></div> 
-<%
-=end%>
-
-
-      <script>
-          function openYear(evt, YearName) {
-            console.log(YearName);
-            console.log(evt);
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-              tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(YearName).style.display = "block";
-            evt.currentTarget.className += " active";
-          }
-
-      </script>
-
-
-
-
-
-      <div><%= link_to 'Create Player', new_player_path %></div>
-    </div>
-    
-    <% end %>
-
-      </div>
-
-
-
-<script>
-  angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.resizeColumns'])
-  .controller('MainCtrl', MainCtrl);
- 
-function MainCtrl() {
-
-
-
-
-
-    
 <% @seasons.each do |season| %>
-
-this.gridOptions<%= season.year_id %> = {
-    enableFiltering: true,
-    enableColumnResizing: true,
-
-    
-    data: [
-    <% season.players.each do |player| %>
-    {
-        Id: '<%= player.id %>',
-        Name: '<%= player.name %>',
-        Team: "<%= player.Team %>", 
-        College: "<%= player.college %>", 
-        Year: "<%= player.years %>", 
-        Draft_Pick: "<%= player.draftpick %>", 
-        Position: "<%= player.position %>",
-        GP: "<%= player.GP %>", 
-        MPG: "<%= player.MPG %>", 
-        PPG: "<%= player.PPG %>", 
-        RPG: "<%= player.RPG %>", 
-        APG: "<%= player.APG %>", 
-        BPG: "<%= player.BPG %>", 
-        SPG: "<%= player.SPG %>",
-        FGP: "<%= player.fgp %>", 
-        TPP: "<%= player.tpp %>", 
-        FTP: "<%= player.ftp %>", 
-        Awards: "<%= player.award %>"
-    },
-    <% end %>
-  ],
-    columnDefs: [
-      { name: 'Name', width:200 },
-      { name: 'Id', displayName: "Player Link", cellTemplate: '<a href="/players/{{COL_FIELD}}">Go To Player</a>' },
-      { name: 'Team', width:200 },
-      { name: 'College', width:200 },
-      { name: 'Year', type: "number" },
-      { name: 'Draft_Pick', type: "number"  },
-      { name: 'Position', width:150 },
-      { name: 'GP', type: "number"  },
-      { name: 'MPG', type: "number"  },
-      { name: 'PPG', type: "number"  },
-      { name: 'RPG', type: "number"  },
-      { name: 'APG', type: "number"  },
-      { name: 'BPG', type: "number"  },
-      { name: 'SPG', type: "number"  },
-      { name: 'FGP', type: "number"  },
-      { name: 'TPP', type: "number"  },
-      { name: 'FTP', type: "number"  },
-      { name: 'Awards' },
-    ]
-  };
-
+  <%= link_to 'Show', season, remote: true %>
 <% end %>
-}
-</script>
 
-      <!--{ Team: 'gender' },
-      { Year: 'company' },
-      { name: 'widgets' },
-      { name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, row)}}</div>' }-->
+<div id="gridArea"></div>
+
 
 </body>
 

@@ -3,10 +3,14 @@ class SeasonsController < ApplicationController
 
   def index
     @seasons = Season.all
+    
   end
 
   def show
-
+    respond_to do |format|
+      #format.html
+      format.js {render layout: false}
+    end
   end
 
   def new

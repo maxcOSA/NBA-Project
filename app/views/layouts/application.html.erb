@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html>
   <head>
     <title>NBAProject</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all'%>
+    <%= javascript_include_tag 'application'%>
 
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
@@ -26,4 +26,12 @@
   <body>
     <%= yield %>
   </body>
+
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+   <%= content_for(:document_ready) %>
+  });     
+           
+ </script>
 </html>
