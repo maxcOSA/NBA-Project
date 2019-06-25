@@ -1,5 +1,22 @@
 <h1>New Player</h1>
 
-<%= render 'form', player: @player %>
+<div class="mbsc-form-group">
+	
+		<div class="mbsc-form-grid">
+
+                <%= render 'form', player: @player %>
+			</div>
+
+</div>
+
+
 
 <%= link_to 'Back', seasons_path %>
+
+<%= content_for :document_ready do %>
+    $('#newform').mobiscroll().form({
+        theme: 'ios',
+        inputStyle: 'box',
+        labelStyle: 'floating'
+    });
+<% end %>
