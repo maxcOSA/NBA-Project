@@ -1,5 +1,73 @@
 <h1>New Player</h1>
 
-<%= render 'form', player: @player %>
+<div class="mbsc-form-group">
+	
+		<div class="mbsc-form-grid">
+
+                <%= render 'form', player: @player %>
+			</div>
+
+</div>
+
+
 
 <%= link_to 'Back', seasons_path %>
+
+<%= content_for :document_ready do %>
+
+    //$('#newform').attr('mbsc-form')
+    
+
+
+    $('#newform').mobiscroll().form({
+        theme: 'ios',
+        inputStyle: 'box',
+        labelStyle: 'floating'
+    });
+    
+
+
+ $(function () {
+
+    $('#newform').on('submit', function (ev) {
+        $("#newform").validate();
+        if ($(this).valid()) {
+            ev.preventDefault();
+            mobiscroll.alert({
+                title: 'Thank you for creating a player',
+                callback: function() {
+                    ev.currentTarget.submit();
+                }
+            });
+        }
+        }).validate({
+            errorClass: 'mbsc-err-msg',
+            errorPlacement: function (error, element) {
+                element.parent().append(error);
+                console.log(element);
+                console.log(element.parent());
+            },
+            highlight: function (element) {
+                $(element).closest('.mbsc-input').addClass("mbsc-err");
+            },
+            unhighlight: function (element) {
+                $(element).closest('.mbsc-input').removeClass("mbsc-err");
+            },
+            messages: {
+                "player[name]": {
+                    required: 'Name is required.',
+                    minlength: "Did not meet length requirement"
+                },
+                "Team": {
+                    required: 'Team is required.',
+                },
+                college: {
+                    required: 'College is required.',
+                },
+                position: {
+                    required: 'Position is required.',
+                }
+            }
+        });
+    });
+<% end %>
