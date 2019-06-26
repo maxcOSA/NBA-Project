@@ -71,27 +71,20 @@ body {font-family: Arial;}
 
 
 
-
-
-
-
-
-
-
-
-
-<body>
-
-
-
 <% @seasons.each do |season| %>
   <%= link_to 'Show', season, remote: true %>
 <% end %>
 
-<div id="gridArea"></div>
 
 
-</body>
+
+
+
+  <div id="gridArea">
+  </div>
+
+
+
 
 <p id="notice"><%= notice %></p>
 

@@ -53,9 +53,6 @@ ActiveRecord::Schema.define(version: 2019_06_07_180139) do
     t.datetime "updated_at", null: false
   end
 
-# Could not dump table "players" because of following StandardError
-#   Unknown type '' for column 'fgp'
-
   create_table "seasons", force: :cascade do |t|
     t.integer "year_id"
     t.datetime "created_at", null: false

@@ -1,27 +1,2 @@
 $("#gridArea").html("<%= escape_javascript(render partial: 'seasons/show', locals: {season: @season}) %>");
 
-angular.module('app', ['ngTouch', 'ui.grid'])
-  .controller('MainCtrl', MainCtrl);
- alert("in here!");
-function MainCtrl() {
-  this.myData<%= @season.year_id %> = [
-    {
-        firstName: "Cox",
-        lastName: "Carney",
-        company: "Enormo",
-        employed: true
-    },
-    {
-        firstName: "Lorraine",
-        lastName: "Wise",
-        company: "Comveyer",
-        employed: false
-    },
-    {
-        firstName: "Nancy",
-        lastName: "Waters",
-        company: "Fuelton",
-        employed: false
-    }
-  ];
-}
