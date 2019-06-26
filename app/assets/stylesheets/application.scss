@@ -1,2 +1,11 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+
+
+
+
+.mbsc-ios .mbsc-input-box .mbsc-err-msg, .mbsc-ios .mbsc-input-outline .mbsc-err-msg
+{
+    bottom: unset !important;
+}

@@ -12,7 +12,8 @@ const { parallel } = require('gulp');
 
 function js() {
 	return gulp.src([
-    'assets/javascripts/*.js'
+    'assets/javascripts/*.js',
+    'node_modules/jquery-validation/dist/jquery.validate.js'
   ])
   .pipe(minify({
   ext:{
