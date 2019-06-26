@@ -2,37 +2,8 @@
     <%= @season.year_id %>
 </p>
 
-<div ng-app="app">
-    <div  ng-controller="MainCtrl as $ctrl">
-    <div ui-grid="{ data: $ctrl.myData<%= @season.year_id %> }" class="myGrid" id="grid<%= @season.year_id %>"></div>
-    </div>
-</div>
+<div ui-grid="{ data: $ctrl.myData<%= @season.year_id %> }" class="myGrid" id="grid<%= @season.year_id %>"></div>
 
-<script>
-    angular.module('app', ['ngTouch', 'ui.grid'])
-  .controller('MainCtrl', MainCtrl);
 
-function MainCtrl() {
- alert("in here!");
-  this.myData<%= @season.year_id %> = [
-    {
-        firstName: "Cox",
-        lastName: "Carney",
-        company: "Enormo",
-        employed: true
-    },
-    {
-        firstName: "Lorraine",
-        lastName: "Wise",
-        company: "Comveyer",
-        employed: false
-    },
-    {
-        firstName: "Nancy",
-        lastName: "Waters",
-        company: "Fuelton",
-        employed: false
-    }
-  ];
-}
-</script>
+
+
