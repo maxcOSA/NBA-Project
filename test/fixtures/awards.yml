@@ -1,19 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  year: 
-  MVP: 
-  DPOY: 
-  MIP: 
-  ROY: 
-  SMOY: 
+  year: 1
+  MVP: MyString
+  DPOY: MyString
+  MIP: MyString
   COY: MyString
+  ROY: MyString
+  SMOY: MyString
+  ASMVP: MyString
+  FMVP: MyString
 
 two:
-  year: 
-  MVP: 
-  DPOY: 
-  MIP: 
-  ROY: 
-  SMOY: 
+  year: 1
+  MVP: MyString
+  DPOY: MyString
+  MIP: MyString
   COY: MyString
+  ROY: MyString
+  SMOY: MyString
+  ASMVP: MyString
+  FMVP: MyString

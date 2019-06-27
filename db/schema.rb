@@ -10,27 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_180139) do
+ActiveRecord::Schema.define(version: 2019_06_27_190221) do
 
   create_table "awards", force: :cascade do |t|
-    t.string "year"
+    t.integer "year"
     t.string "MVP"
     t.string "DPOY"
     t.string "MIP"
-    t.string "CPOY"
     t.string "COY"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "ROY"
     t.string "SMOY"
+    t.string "ASMVP"
+    t.string "FMVP"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "finals", force: :cascade do |t|
-    t.string "year"
-    t.string "Winner"
-    t.string "Loser"
+    t.integer "year"
+    t.string "winner"
+    t.string "loser"
     t.string "MVP"
-    t.integer "Games"
+    t.integer "games"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

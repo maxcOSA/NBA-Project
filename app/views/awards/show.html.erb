@@ -1,40 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<h1> Award Winners in <%= @award.year %> </h1>
-<p>
-  <strong>Year:</strong>
-  <%= @award.year %>
-</p>
+<h1> Awards </h1>
 
-<p>
-  <strong>MVP:</strong>
-  <%= @award.MVP %>
-</p>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
 
-<p>
-  <strong>DPOY:</strong>
-  <%= @award.DPOY %>
-</p>
+table, th, td {
+  border: 1px solid black;
+}
 
-<p>
-  <strong>MIP:</strong>
-  <%= @award.MIP %>
-</p>
+th, td {
+  padding: 10px;
+}
+</style>
+</head>
 
-<p>
-  <strong>COY:</strong>
-  <%= @award.COY %>
-</p>
 
-<p>
-  <strong>ROY:</strong>
-  <%= @award.ROY %>
-</p>
+<table style="width:90%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Conference</th>
+      <th>Division</th>
+      <th>Regular Season Record</th>
+      <th>Finish</th>
+      <th>Division Standing</th>
+      <th>Conference Standing</th>
+      <th>League Standing </th>
+      <th colspan="10"></th>
+    </tr>
+  </thead>
 
-<p>
-  <strong>SMOY:</strong>
-  <%= @award.SMOY %>
-</p>
+  <tbody>
+        <tr>
+        <td><%=@award.year%></td> 
+        <td><%=@award.MVP%></td>
+        <td><%=@award.DPOY%></td>
+        <td><%=@award.MIP%></td>
+        <td><%=@award.SMOY%></td>
+        <td><%=@award.ROY%></td>
+        <td><%=@award.COY%></td>
+        <td><%=@award.ASMVP%></td>
+        <td><%=@award.FMVP%></td>
+        </tr>
+  </tbody>
+</table>
 
-<%= link_to 'Edit', edit_award_path(@award) %> |
+<td><%= link_to 'Edit', edit_award_path(@award) %></td>
 <%= link_to 'Back', awards_path %>

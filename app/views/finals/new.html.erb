@@ -1,17 +1,17 @@
-<h1>New Award Year</h1>
+<h1>New Finals</h1>
 
 <div class="mbsc-form-group">
 	
 		<div class="mbsc-form-grid">
 
-                <%= render 'form', award: @award %>
+                <%= render 'form', final: @final %>
 			</div>
 
 </div>
 
 
 
-<%= link_to 'Back', awards_path %>
+<%= link_to 'Back', finals_path %>
 
 <%= content_for :document_ready do %>
 
@@ -34,7 +34,7 @@
         if ($(this).valid()) {
             ev.preventDefault();
             mobiscroll.alert({
-                title: 'Thank you for creating these award winners',
+                title: 'Thank you for creating a finals',
                 callback: function() {
                     ev.currentTarget.submit();
                 }

@@ -1,0 +1,47 @@
+<h1>
+<%= @final.year %> NBA Finals
+</h1>
+
+<%= image_tag("/assets/#{@final.year}finals.jpg",  :size => "400x250") %>
+<%= image_tag("/assets/#{@final.year}FMVP.jpg",  :size => "400x250") %>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 10px;
+}
+</style>
+</head>
+
+
+<table  style="margin-top:25px; width:50%">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Winner</th>
+      <th>Loser</th>
+      <th>Finals MVP</th>
+      <th>Games</th>
+    </tr>
+  </thead>
+
+  <tbody>
+        <tr>
+        <td><%=@final.year%></td> 
+        <td><%=@final.winner%></td>
+        <td><%=@final.loser%></td>
+        <td><%=@final.MVP%></td>
+        <td><%=@final.games%></td>
+        </tr>
+  </tbody>
+</table>
+
+<td><%= link_to 'Edit', edit_final_path(@final) %></td>
+<%= link_to 'Back', finals_path %>
+<p id="notice"><%= notice %></p>

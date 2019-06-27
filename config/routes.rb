@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :seasons
   resources :awards
   resources :teams
+  resources :finals
 end

@@ -1,0 +1,44 @@
+<div>
+<%= form_with(model: final, local: true, html: { novalidate: false , id: "newform"}) do |form| %>
+  <% if final.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(final.errors.count, "error") %> prohibited this final from being saved:</h2>
+
+      <ul>
+      <% final.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year %>
+  </div>
+
+  <div class="field">
+  <%= form.label :winner %>
+  <%= form.text_field :winner %>
+  </div>
+
+  <div class="field">
+    <%= form.label :loser %>
+    <%= form.text_field :loser %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MVP %>
+    <%= form.text_field :MVP %>
+  </div>
+
+  <div class="field">
+    <%= form.label :games %>
+    <%= form.text_field :games %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>
