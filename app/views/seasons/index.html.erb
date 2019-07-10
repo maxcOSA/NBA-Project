@@ -74,42 +74,12 @@ body {font-family: Arial;}
 <body>
   <div class="tab">
     <% @seasons.each do |season| %>
-      <button class="tablinks" onclick="openYear(event, '<%= season.year_id %>' )"><%= season.year_id %></button>
+      <button class="tablinks" id="<%= season.year_id %>"><%= season.year_id %></button>
     <% end %>
   </div>
 
 
-  <h1>Players</h1>
-  <%= link_to 'Create Season', new_season_path %>
-
-      <div ng-controller="MainCtrl as $ctrl">
-
-
-
-  <% @seasons.each do |season| %>
-    <div id="<%= season.year_id %>" class="tabcontent">
-
-
-        <div ui-grid="$ctrl.gridOptions<%= season.year_id %>" class="myGrid" id="grid_<%= season.year_id %>" ui-grid-resize-columns ui-grid-selection></div>
-        <p id="getList">CLICK HERE</p>
-
-
-
-      <h5> Click on a category header to sort </h5>
-
-
-
-      
-
-
-      <%
-=begin%>
- <div id="grid_<%= season.year_id %>"></div> 
-<%
-=end%>
-
-
-      <script>
+  <script>
           function openYear(evt, YearName) {
             console.log(YearName);
             console.log(evt);
@@ -129,35 +99,96 @@ body {font-family: Arial;}
       </script>
 
 
+  <h1>Players</h1>
+  <%= link_to 'Create Season', new_season_path %>
 
+      <div ng-controller="MainCtrl as $ctrl">
+        <div ui-grid="$ctrl.gridOptions" class="myGrid" ui-grid-resize-columns ui-grid-selection></div>
+      </div>
 
-
+  <% @seasons.each do |season| %>
+    <div id="<%= season.year_id %>" class="tabcontent">
       <div><%= link_to 'Create Player', new_player_path %></div>
     </div>
     
     <% end %>
 
-      </div>
+      
+
+  
+      <p id="getList">CLICK HERE</p>
+      <h5> Click on a category header to sort </h5>
 
 
 
 <script>
-  angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.resizeColumns', 'ui.grid.selection'])
-  .controller('MainCtrl', MainCtrl);
+  
 
-  function MainCtrl() {
+  var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.resizeColumns', 'ui.grid.selection']);
 
-    <% @seasons.each do |season| %>
+  app.controller('MainCtrl',
+      function ($scope, $http, uiGridConstants) {
+        var vm = this,
+          gridApi;
 
-      this.gridOptions<%= season.year_id %> = {
-        enableFiltering: true,
-        enableColumnResizing: true,
-        enablePlayerselection: true,
-        onRegisterApi: function( gridApi) {
-          this.gridApi = gridApi; 
-        },
-        
-        data: [
+        vm.gridOptions = {
+          enableFiltering: true,
+          enableColumnResizing: true,
+          enablePlayerselection: true,
+          columnDefs: [
+          { name: 'Name', width:200 },
+          { name: 'Id', displayName: "Player Link", cellTemplate: '<a href="/players/{{COL_FIELD}}">Go To Player</a>' },
+          { name: 'Team', width:200 },
+          { name: 'College', width:200 },
+          { name: 'Year', type: "number", width:100 },
+          { name: 'Draft_Pick', type: "number", width:100  },
+          { name: 'Position', width:150 },
+          { name: 'GP', type: "number", width:80 },
+          { name: 'MPG', type: "number", width:80  },
+          { name: 'PPG', type: "number", width:80  },
+          { name: 'RPG', type: "number", width:80  },
+          { name: 'APG', type: "number" , width:80 },
+          { name: 'BPG', type: "number", width:80  },
+          { name: 'SPG', type: "number" , width:80 },
+          { name: 'FGP', type: "number" , width:80 },
+          { name: 'TPP', type: "number" , width:80 },
+          { name: 'FTP', type: "number" , width:80 },
+          { name: 'Awards', width:300 },
+        ],
+         onRegisterApi: function onRegisterApi(registeredApi) {
+            gridApi = registeredApi;
+         }
+        };
+
+        vm.gridOptions.data = [];
+
+
+
+        $('#getList').on('click', function(){
+            mySelectedPlayers = gridApi.selection.getSelectedPlayers(); //<--Property undefined error here
+            if (mySelectedPlayers[0]) {
+              alert('Selected Player: ' + mySelectedPlayers[0].name + ', ' + mySelectedPlayers[0].id + '.');
+            } else {
+              alert('Select a player first');
+            }
+            $timeout(function() {
+                if (gridApi.selection.selectedPlayer) {
+                    gridApi.selection.selectPlayer(gridOptions.data[0]);
+                }
+            });
+        });
+
+playerData = [];
+
+
+$('.tablinks').on("click", function(){
+  console.log($(this).attr('id'));
+
+
+  switch($(this).attr('id')) {
+<% @seasons.each do |season| %>
+  case '<%= season.year_id %>':
+    vm.gridOptions.data = [
         <% season.players.each do |player| %>
         {
             Id: '<%= player.id %>',
@@ -179,57 +210,33 @@ body {font-family: Arial;}
             FTP: "<%= player.ftp %>", 
             Awards: "<%= player.award %>"
         },
-        <% end %>
-      ],
-        columnDefs: [
-          { name: 'Name', width:200 },
-          { name: 'Id', displayName: "Player Link", cellTemplate: '<a href="/players/{{COL_FIELD}}">Go To Player</a>' },
-          { name: 'Team', width:200 },
-          { name: 'College', width:200 },
-          { name: 'Year', type: "number", width:100 },
-          { name: 'Draft_Pick', type: "number", width:100  },
-          { name: 'Position', width:150 },
-          { name: 'GP', type: "number", width:80 },
-          { name: 'MPG', type: "number", width:80  },
-          { name: 'PPG', type: "number", width:80  },
-          { name: 'RPG', type: "number", width:80  },
-          { name: 'APG', type: "number" , width:80 },
-          { name: 'BPG', type: "number", width:80  },
-          { name: 'SPG', type: "number" , width:80 },
-          { name: 'FGP', type: "number" , width:80 },
-          { name: 'TPP', type: "number" , width:80 },
-          { name: 'FTP', type: "number" , width:80 },
-          { name: 'Awards', width:300 },
-        ]
-      };
+       <% end %> 
+      ];
+      console.log(vm.gridOptions.data);
+    break;
+<% end %>
+  default:
+    
+}
 
-    <% end %>
+
+gridApi.core.refresh();
+
+
+});
 
 
 
 
-  $('#getList').on('click', function(){
 
-      mySelectedPlayers = this.gridApi.selection.getSelectedPlayers(); //<--Property undefined error here
-      if (mySelectedPlayers[0]) {
-        alert('Selected Player: ' + mySelectedPlayers[0].name + ', ' + mySelectedPlayers[0].id + '.');
-      } else {
-        alert('Select a player first');
-      }
-      $timeout(function() {
-          if (gridApi.selection.selectedPlayer) {
-              gridApi.selection.selectPlayer(gridOptions.data[0]);
-          }
-      });
+        
+
+    
+
+
+
+
   });
-
-
-
-
-
-
-
-  }
 
 
 
