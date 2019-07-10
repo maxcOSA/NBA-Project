@@ -76,14 +76,31 @@ body {font-family: Arial;}
 <% end %>
 
 
+    <div  ng-controller="MainCtrl as $ctrl">
+      <div id="gridArea">
+        <div ui-grid="{ data: $ctrl.myData }" class="myGrid" id="grid"></div>
+        <div ui-grid="{ data: $ctrl.myData2017 }" class="myGrid" id="grid2017"></div>
+      </div>
+    </div>
+
+
+
+
+
+<p id="notice"><%= notice %></p>
+
 <script>
-    angular.module('app', ['ngTouch', 'ui.grid'])
+
+angular.module('app', ['ngTouch', 'ui.grid'])
   .controller('MainCtrl', MainCtrl);
 
-function MainCtrl() {
- alert("in here!");
- <% @seasons.each do |season| %>
-  this.myData<%= @season.year_id %> = [
+
+</script>
+
+
+<script>
+app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) { 
+  this.myData = [
     {
         firstName: "Cox",
         lastName: "Carney",
@@ -103,25 +120,10 @@ function MainCtrl() {
         employed: false
     }
   ];
-<% end %>
-
-}
+}]);
 </script>
 
 
 
-
-<div ng-app="app">
-    <div  ng-controller="MainCtrl as $ctrl">
-      <div id="gridArea">
-      </div>
-    </div>
-</div>
-
-
-
-
-
-<p id="notice"><%= notice %></p>
 
 

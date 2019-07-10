@@ -3,3 +3,4 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require angular
+//= require app
