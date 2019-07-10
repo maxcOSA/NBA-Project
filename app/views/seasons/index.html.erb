@@ -157,6 +157,11 @@ body {font-family: Arial;}
         ],
          onRegisterApi: function onRegisterApi(registeredApi) {
             gridApi = registeredApi;
+            gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+              if(row.isSelected){
+                console.log(row.entity.Id);
+              }
+            });
          }
         };
 
@@ -224,6 +229,10 @@ gridApi.core.refresh();
 
 
 });
+
+
+
+
 
 
 
