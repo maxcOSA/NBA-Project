@@ -90,7 +90,8 @@ body {font-family: Arial;}
     <div id="<%= season.year_id %>" class="tabcontent">
 
 
-        <div ui-grid="$ctrl.gridOptions<%= season.year_id %>" class="myGrid" id="grid_<%= season.year_id %>" ui-grid-resize-columns></div>
+        <div ui-grid="$ctrl.gridOptions<%= season.year_id %>" class="myGrid" id="grid_<%= season.year_id %>" ui-grid-resize-columns ui-grid-selection></div>
+        <p id="getList">CLICK HERE</p>
 
 
 
@@ -141,77 +142,104 @@ body {font-family: Arial;}
 
 
 <script>
-  angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.resizeColumns'])
+  angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.resizeColumns', 'ui.grid.selection'])
   .controller('MainCtrl', MainCtrl);
- 
-function MainCtrl() {
 
+  function MainCtrl() {
 
+    <% @seasons.each do |season| %>
 
+      this.gridOptions<%= season.year_id %> = {
+        enableFiltering: true,
+        enableColumnResizing: true,
+        enablePlayerselection: true,
+        onRegisterApi: function( gridApi) {
+          this.gridApi = gridApi; 
+        },
+        
+        data: [
+        <% season.players.each do |player| %>
+        {
+            Id: '<%= player.id %>',
+            Name: '<%= player.name %>',
+            Team: "<%= player.Team %>", 
+            College: "<%= player.college %>", 
+            Year: "<%= player.years %>", 
+            Draft_Pick: "<%= player.draftpick %>", 
+            Position: "<%= player.position %>",
+            GP: "<%= player.GP %>", 
+            MPG: "<%= player.MPG %>", 
+            PPG: "<%= player.PPG %>", 
+            RPG: "<%= player.RPG %>", 
+            APG: "<%= player.APG %>", 
+            BPG: "<%= player.BPG %>", 
+            SPG: "<%= player.SPG %>",
+            FGP: "<%= player.fgp %>", 
+            TPP: "<%= player.tpp %>", 
+            FTP: "<%= player.ftp %>", 
+            Awards: "<%= player.award %>"
+        },
+        <% end %>
+      ],
+        columnDefs: [
+          { name: 'Name', width:200 },
+          { name: 'Id', displayName: "Player Link", cellTemplate: '<a href="/players/{{COL_FIELD}}">Go To Player</a>' },
+          { name: 'Team', width:200 },
+          { name: 'College', width:200 },
+          { name: 'Year', type: "number", width:100 },
+          { name: 'Draft_Pick', type: "number", width:100  },
+          { name: 'Position', width:150 },
+          { name: 'GP', type: "number", width:80 },
+          { name: 'MPG', type: "number", width:80  },
+          { name: 'PPG', type: "number", width:80  },
+          { name: 'RPG', type: "number", width:80  },
+          { name: 'APG', type: "number" , width:80 },
+          { name: 'BPG', type: "number", width:80  },
+          { name: 'SPG', type: "number" , width:80 },
+          { name: 'FGP', type: "number" , width:80 },
+          { name: 'TPP', type: "number" , width:80 },
+          { name: 'FTP', type: "number" , width:80 },
+          { name: 'Awards', width:300 },
+        ]
+      };
 
-
-    
-<% @seasons.each do |season| %>
-
-this.gridOptions<%= season.year_id %> = {
-    enableFiltering: true,
-    enableColumnResizing: true,
-
-    
-    data: [
-    <% season.players.each do |player| %>
-    {
-        Id: '<%= player.id %>',
-        Name: '<%= player.name %>',
-        Team: "<%= player.Team %>", 
-        College: "<%= player.college %>", 
-        Year: "<%= player.years %>", 
-        Draft_Pick: "<%= player.draftpick %>", 
-        Position: "<%= player.position %>",
-        GP: "<%= player.GP %>", 
-        MPG: "<%= player.MPG %>", 
-        PPG: "<%= player.PPG %>", 
-        RPG: "<%= player.RPG %>", 
-        APG: "<%= player.APG %>", 
-        BPG: "<%= player.BPG %>", 
-        SPG: "<%= player.SPG %>",
-        FGP: "<%= player.fgp %>", 
-        TPP: "<%= player.tpp %>", 
-        FTP: "<%= player.ftp %>", 
-        Awards: "<%= player.award %>"
-    },
     <% end %>
-  ],
-    columnDefs: [
-      { name: 'Name', width:200 },
-      { name: 'Id', displayName: "Player Link", cellTemplate: '<a href="/players/{{COL_FIELD}}">Go To Player</a>' },
-      { name: 'Team', width:200 },
-      { name: 'College', width:200 },
-      { name: 'Year', type: "number" },
-      { name: 'Draft_Pick', type: "number"  },
-      { name: 'Position', width:150 },
-      { name: 'GP', type: "number"  },
-      { name: 'MPG', type: "number"  },
-      { name: 'PPG', type: "number"  },
-      { name: 'RPG', type: "number"  },
-      { name: 'APG', type: "number"  },
-      { name: 'BPG', type: "number"  },
-      { name: 'SPG', type: "number"  },
-      { name: 'FGP', type: "number"  },
-      { name: 'TPP', type: "number"  },
-      { name: 'FTP', type: "number"  },
-      { name: 'Awards' },
-    ]
-  };
 
-<% end %>
-}
+
+
+
+  $('#getList').on('click', function(){
+
+      mySelectedPlayers = this.gridApi.selection.getSelectedPlayers(); //<--Property undefined error here
+      if (mySelectedPlayers[0]) {
+        alert('Selected Player: ' + mySelectedPlayers[0].name + ', ' + mySelectedPlayers[0].id + '.');
+      } else {
+        alert('Select a player first');
+      }
+      $timeout(function() {
+          if (gridApi.selection.selectedPlayer) {
+              gridApi.selection.selectPlayer(gridOptions.data[0]);
+          }
+      });
+  });
+
+
+
+
+
+
+
+  }
+
+
+
+
 </script>
 
       <!--{ Team: 'gender' },
       { Year: 'company' },
       { name: 'widgets' },
-      { name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, row)}}</div>' }-->
+      { name: 'cumulativeWidgets', field: 'widgets', cellTemplate: '<div class="ui-grid-cell-contents" title="TOOLTIP">{{grid.appScope.cumulative(grid, Player)}}</div>' }-->
 
 </body>
 

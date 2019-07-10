@@ -1,0 +1,7 @@
+<% @seasons.each do |season| %>
+
+ <% season.players.each do |player| %>
+        Id: '<%= player.id %>',<br>
+        Name: '<%= player.name %>',<br>
+<% end %>
+<% end %>
