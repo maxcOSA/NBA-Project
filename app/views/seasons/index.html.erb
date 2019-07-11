@@ -121,7 +121,10 @@ body {font-family: Arial;}
 
 
 
-      <div id="comp_bar" class="hidden"></div>
+      <div id="comp_bar" class="hidden">
+        <button type="button" class="btn btn-primary">Compare Now <i class="fas fa-clone"></i></button>
+        <ul id="player_list"></ul>
+      </div>
 
 
 
@@ -165,13 +168,15 @@ body {font-family: Arial;}
             gridApi = registeredApi;
             gridApi.selection.on.rowSelectionChanged($scope, function (row) {
               if(row.isSelected){
-                comp_arr.push({playerId: row.entity.Id, playerName: row.entity.Name, playerYear: row.entity.SeasonYear}); 
+                comp_arr.push({playerId: row.entity.Id, playerName: row.entity.Name, playerYear: row.entity.SeasonYear});
+                $("#player_list").append('<li id="'+row.entity.Id+'">'+row.entity.Name +' ('+row.entity.SeasonYear+')</li>');
               }
               else
               {
                 comp_arr = comp_arr.filter(function( obj ) {
                             return obj.playerId !== row.entity.Id;
                           });
+                $('li#'+row.entity.Id+'').remove();
               }
 
 
