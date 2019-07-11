@@ -113,16 +113,13 @@ body {font-family: Arial;}
     
     <% end %>
 
-      
-
-  
-      <p id="getList">CLICK HERE</p>
+    
       <h5> Click on a category header to sort </h5>
 
 
 
       <div id="comp_bar" class="hidden">
-        <button type="button" class="btn btn-primary">Compare Now <i class="fas fa-clone"></i></button>
+        <button id="comp_now" type="button" class="btn btn-primary">Compare Now <i class="fas fa-clone"></i></button>
         <ul id="player_list"></ul>
       </div>
 
@@ -212,34 +209,22 @@ body {font-family: Arial;}
         };
 
 
-
-
         vm.gridOptions.data = [];
 
 
-        $('#getList').on('click', function(){
-            mySelectedPlayers = gridApi.selection.getSelectedPlayers(); //<--Property undefined error here
-            if (mySelectedPlayers[0]) {
-              alert('Selected Player: ' + mySelectedPlayers[0].name + ', ' + mySelectedPlayers[0].id + '.');
-            } else {
-              alert('Select a player first');
-            }
-            $timeout(function() {
-                if (gridApi.selection.selectedPlayer) {
-                    gridApi.selection.selectPlayer(gridOptions.data[0]);
-                }
-            });
+        $('#comp_now').on('click', function(){
+          
+            sessionStorage.setItem('comp_arr', JSON.stringify(comp_arr));
+
+            console.log(sessionStorage.getItem('comp_arr'));
+            
         });
 
-playerData = [];
+
 
 
 $('.tablinks').on("click", function(){
   console.log($(this).attr('id'));
-
-
-
-
 
   switch($(this).attr('id')) {
 <% @seasons.each do |season| %>
