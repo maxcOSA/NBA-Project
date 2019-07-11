@@ -121,6 +121,10 @@ body {font-family: Arial;}
 
 
 
+      <div id="comp_bar" class="hidden"></div>
+
+
+
 <script>
   
 
@@ -161,30 +165,51 @@ body {font-family: Arial;}
             gridApi = registeredApi;
             gridApi.selection.on.rowSelectionChanged($scope, function (row) {
               if(row.isSelected){
-                console.log(row.entity.Id);
-                caller(row.entity);
                 comp_arr.push({playerId: row.entity.Id, playerName: row.entity.Name, playerYear: row.entity.SeasonYear}); 
-                console.log(comp_arr);   
               }
               else
               {
                 comp_arr = comp_arr.filter(function( obj ) {
                             return obj.playerId !== row.entity.Id;
                           });
-                console.log(comp_arr); 
+              }
+
+
+              if(comp_arr.length > 1)
+              {
+                $('#comp_bar').removeClass('hidden');
+              }
+              else
+              {
+                $('#comp_bar').addClass('hidden');
               }
             });
+
+        gridApi.core.on.rowsRendered($scope, function() {
+
+                    selection_arr = [];
+
+                    comp_arr.map(function(value) {
+                      selection_arr.push(value.playerId);
+                    });
+
+
+                    for(var i = 0; i < vm.gridOptions.data.length; i++)
+                    {
+                      if(selection_arr.includes(vm.gridOptions.data[i].Id))
+                        {
+                            gridApi.selection.toggleRowSelection(vm.gridOptions.data[i])
+                        }
+                    }
+                });
+
          }
         };
 
+
+
+
         vm.gridOptions.data = [];
-
-
-      function caller(imported_row)
-      {
-        console.log(imported_row.Id + imported_row.Name + imported_row.SeasonYear);
-      };
-
 
 
         $('#getList').on('click', function(){
@@ -235,7 +260,7 @@ $('.tablinks').on("click", function(){
             TPP: "<%= player.tpp %>", 
             FTP: "<%= player.ftp %>", 
             Awards: "<%= player.award %>",
-            SeasonYear: "<%= season.year_id %>"
+            SeasonYear: "<%= season.year_id %>",
         },
        <% end %> 
       ];
