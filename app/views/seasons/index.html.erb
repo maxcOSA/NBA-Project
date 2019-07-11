@@ -131,6 +131,8 @@ body {font-family: Arial;}
         var vm = this,
           gridApi;
 
+        var comp_arr = [];
+
         vm.gridOptions = {
           enableFiltering: true,
           enableColumnResizing: true,
@@ -160,12 +162,28 @@ body {font-family: Arial;}
             gridApi.selection.on.rowSelectionChanged($scope, function (row) {
               if(row.isSelected){
                 console.log(row.entity.Id);
+                caller(row.entity);
+                comp_arr.push({playerId: row.entity.Id, playerName: row.entity.Name, playerYear: row.entity.SeasonYear}); 
+                console.log(comp_arr);   
+              }
+              else
+              {
+                comp_arr = comp_arr.filter(function( obj ) {
+                            return obj.playerId !== row.entity.Id;
+                          });
+                console.log(comp_arr); 
               }
             });
          }
         };
 
         vm.gridOptions.data = [];
+
+
+      function caller(imported_row)
+      {
+        console.log(imported_row.Id + imported_row.Name + imported_row.SeasonYear);
+      };
 
 
 
@@ -190,6 +208,9 @@ $('.tablinks').on("click", function(){
   console.log($(this).attr('id'));
 
 
+
+
+
   switch($(this).attr('id')) {
 <% @seasons.each do |season| %>
   case '<%= season.year_id %>':
@@ -197,7 +218,7 @@ $('.tablinks').on("click", function(){
         <% season.players.each do |player| %>
         {
             Id: '<%= player.id %>',
-            Name: '<%= player.name %>',
+            Name: "<%= raw player.name %>",
             Team: "<%= player.Team %>", 
             College: "<%= player.college %>", 
             Year: "<%= player.years %>", 
@@ -213,7 +234,8 @@ $('.tablinks').on("click", function(){
             FGP: "<%= player.fgp %>", 
             TPP: "<%= player.tpp %>", 
             FTP: "<%= player.ftp %>", 
-            Awards: "<%= player.award %>"
+            Awards: "<%= player.award %>",
+            SeasonYear: "<%= season.year_id %>"
         },
        <% end %> 
       ];
