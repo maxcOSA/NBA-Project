@@ -119,7 +119,7 @@ body {font-family: Arial;}
 
 
       <div id="comp_bar" class="hidden">
-        <button id="comp_now" type="button" class="btn btn-primary">Compare Now <i class="fas fa-clone"></i></button>
+        <%= link_to '<button id="comp_now" type="button" class="btn btn-primary">Compare Now <i class="fas fa-clone"></i></button>'.html_safe, 'compare/index' %>
         <ul id="player_list"></ul>
       </div>
 
