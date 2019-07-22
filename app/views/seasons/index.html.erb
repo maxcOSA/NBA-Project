@@ -101,6 +101,7 @@ body {font-family: Arial;}
 
   <h1>Players</h1>
   <%= link_to 'Create Season', new_season_path %>
+    <%= link_to 'Create Player', new_player_path %>
 
       <div ng-controller="MainCtrl as $ctrl">
         <div ui-grid="$ctrl.gridOptions" class="myGrid" ui-grid-resize-columns ui-grid-selection></div>
